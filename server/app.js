@@ -40,10 +40,12 @@ app.use(cors())
 var index = require('./routes/index');
 var users = require('./routes/users');
 var question = require('./routes/question');
+var answer = require('./routes/answer')
 
 app.use('/', index);
 app.use('/users', users);
 app.use('/questions', question);
+app.use('/answers', answer)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
