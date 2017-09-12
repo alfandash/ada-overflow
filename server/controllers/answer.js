@@ -63,7 +63,7 @@ exports.create = (req,res) => {
 
 exports.delete = (req,res) => {
   let query = {
-    '_id': `${req.body.query.id_answer}`
+    '_id': `${req.query.id_answer}`
   }
   Answer.deleteOne(query)
   .then((result) => {

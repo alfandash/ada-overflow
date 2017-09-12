@@ -18,7 +18,8 @@ const store = new Vuex.Store({
       email: ''
     },
     isLogin: false,
-    userLoginQuestions: []
+    userLoginQuestions: [],
+    questionsAll: []
   },
   mutations: {
     setQuestions (state, data) {
@@ -34,9 +35,37 @@ const store = new Vuex.Store({
     },
     setUserLoginQuestions (state, data) {
       state.userLoginQuestions = data
+    },
+    setQuestionsAll (state, data) {
+      state.questionsAll = data
+    },
+    logout (state, data) {
+      state.questions = []
+      state.userLogin = {
+        token: '',
+        username: '',
+        email: ''
+      }
+      state.isLogin = false
+      state.userLoginQuestions = []
+      state.questionsAll = []
     }
   },
   actions: {
+    logout ({ commit }) {
+      localStorage.removeItem('ada-overflow')
+      commit('logout')
+      this.$router.push({ path: '' })
+    },
+    getAllQuestions ({ commit }) {
+      http.get('/questions/all')
+      .then(({ data }) => {
+        commit('setQuestionsAll', data)
+      })
+      .catch(err => {
+        commit('setQuestionsAll', err)
+      })
+    },
     getUserLogin ({ commit }, tokenUser) {
       http.get('/users/info', {
         headers: {

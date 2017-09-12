@@ -9,6 +9,7 @@ const questionController = require('../controllers/question')
 
 //router.use(jwt.loginCheck)
 
+router.get('/all', questionController.findAll)
 router.get('/',jwt.tokenDecoded, questionController.findById)
 router.get('/:id', jwt.tokenDecoded, questionController.findByQuestionId)
 router.post('/',jwt.tokenDecoded, questionController.create)

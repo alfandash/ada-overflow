@@ -12,8 +12,21 @@ const jwt = require('../helper/jwtHelper');
 exports.findByQuestionId = (req, res) => {
   console.log(req.locals.id)
   var query = {
-    '_id': `${req.params.id}`,
-    'id_user': `${req.locals.id}` }
+    '_id': `${req.params.id}` }
+  Question.find(query)
+    .populate('id_user')
+    .populate('votedup')
+    .populate({path: 'answer', populate: { path: 'id_user'}})
+    .then((documents) => {
+      res.send(documents)
+    })
+    .catch((error) => {
+      res.send(error)
+    })
+}
+
+exports.findAll = (req,res) => {
+  var query = {}
   Question.find(query)
     .populate('id_user')
     .populate('votedup')
@@ -28,6 +41,7 @@ exports.findByQuestionId = (req, res) => {
 
 exports.findById = (req,res) => {
   console.log(req.locals.id)
+  
   var query = {'id_user': `${req.locals.id}`}
   Question.find(query)
   .populate('id_user')

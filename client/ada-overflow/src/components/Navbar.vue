@@ -20,6 +20,9 @@
             <router-link to="/create-question">Create Question</router-link>
           </li>
         </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#" @click.prevent="logout">Logout</a></li>
+        </ul>
       </div>
     </div>
   </nav>
