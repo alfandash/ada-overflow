@@ -26,8 +26,12 @@ export default {
   },
   created () {
     let token = localStorage.getItem('ada-overflow')
-    this.getUserLogin(token)
-    this.getUserLoginQuestions(token)
+    if (token !== null) {
+      this.getUserLogin(token)
+      this.getUserLoginQuestions(token)
+    } else {
+      this.$router.push({ path: '/' })
+    }
   }
 }
 </script>

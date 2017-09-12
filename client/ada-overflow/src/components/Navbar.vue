@@ -20,8 +20,9 @@
             <router-link to="/create-question">Create Question</router-link>
           </li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#" @click.prevent="logout">Logout</a></li>
+        <ul class="nav navbar-nav navbar-right">  
+          <li><a href="#">Selamat datang {{user.username}}</a></li>
+          <li><a href="#" @click.prevent="logoutUser">Logout</a></li>
         </ul>
       </div>
     </div>
@@ -29,8 +30,22 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 export default {
-
+  computed: {
+    ...mapState({
+      user: 'userLogin'
+    })
+  },
+  methods: {
+    ...mapActions([
+      'logout'
+    ]),
+    logoutUser () {
+      this.logout()
+      this.$router.push({ path: '/' })
+    }
+  }
 }
 </script>
 

@@ -55,7 +55,6 @@ const store = new Vuex.Store({
     logout ({ commit }) {
       localStorage.removeItem('ada-overflow')
       commit('logout')
-      this.$router.push({ path: '' })
     },
     getAllQuestions ({ commit }) {
       http.get('/questions/all')
