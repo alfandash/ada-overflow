@@ -9,6 +9,23 @@ const Answer = require('../model/answers')
 // add helper to get payload
 const jwt = require('../helper/jwtHelper');
 
+exports.findByQuestionId = (req, res) => {
+  console.log(req.locals.id)
+  var query = {
+    '_id': `${req.params.id}`,
+    'id_user': `${req.locals.id}` }
+  Question.find(query)
+    .populate('id_user')
+    .populate('votedup')
+    .populate('answer')
+    .then((documents) => {
+      res.send(documents)
+    })
+    .catch((error) => {
+      res.send(error)
+    })
+}
+
 exports.findById = (req,res) => {
   console.log(req.locals.id)
   var query = {'id_user': `${req.locals.id}`}

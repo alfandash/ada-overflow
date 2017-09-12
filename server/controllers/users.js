@@ -12,6 +12,12 @@ const convertPass = require('../helper/convertPass');
 // require jwt helper
 const jwt = require('../helper/jwtHelper');
 
+exports.userInfo = (req,res) => {
+  // console.log('masuk cuy')
+  console.log(req.locals)
+  res.send(req.locals)
+}
+
 exports.index = (req,res) => {
   res.send('respond with a resource');
 }
@@ -77,7 +83,10 @@ exports.signin = (req,res) => {
           var success = {
             'success' : {},
             'message' : 'Login success',
-            'token' : token
+            'token' : token,
+            'username': payload.username,
+            'email' : payload.email,
+            'id' : payload.id
           }
           res.send(success)
         })

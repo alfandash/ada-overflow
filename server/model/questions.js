@@ -10,8 +10,8 @@ const questionSchema = new mongoose.Schema({
   answer: [{type: Schema.ObjectId, ref: 'answer'}],
   votedup: [{type: Schema.ObjectId, ref: 'user'}],
   voteddown: [{type: Schema.ObjectId, ref: 'user'}],
-  created_at: {type: Date, default: new Date()},
-  updated_at: {type: Date, default: new Date()}
+  created_at: {type: Date, default: Date.now},
+  updated_at: {type: Date, default: Date.now}
 })
 
 var Questions = mongoose.model('question', questionSchema);

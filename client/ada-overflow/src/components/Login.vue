@@ -34,6 +34,7 @@
 
 <script>
 import Register from '@/components/Register'
+import { mapActions } from 'vuex'
 export default {
   components: {
     Register
@@ -49,6 +50,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'getUserLogin',
+      'getUserLoginQuestions'
+    ]),
     loginuser () {
       this.$http.post('/users/signin', {
         email: this.login.email,
@@ -56,12 +61,15 @@ export default {
       })
       .then(({data}) => {
         if (!data.hasOwnProperty('errors')) {
-          this.$router.push({ name: 'test' })
+          console.log(data)
           localStorage.setItem('ada-overflow', data.token)
+          this.getUserLogin(data.token)
+          this.getUserLoginQuestions(data.token)
+          this.$router.push({path: 'myquestion'})
         }
         this.status = true
         this.error_msg = data.message
-        console.log(data)
+        // console.log(data)
       })
       .catch(({message}) => {
         this.status = true

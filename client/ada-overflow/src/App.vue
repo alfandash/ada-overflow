@@ -6,8 +6,29 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 export default {
-  name: 'app'
+  name: 'app',
+  data () {
+    return {
+    }
+  },
+  methods: {
+    ...mapActions([
+      'getUserLogin',
+      'getUserLoginQuestions'
+    ])
+  },
+  computed: {
+    ...mapState({
+      user: 'userLogin'
+    })
+  },
+  created () {
+    let token = localStorage.getItem('ada-overflow')
+    this.getUserLogin(token)
+    this.getUserLoginQuestions(token)
+  }
 }
 </script>
 
