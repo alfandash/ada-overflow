@@ -14,8 +14,8 @@ exports.findByQuestionId = (req, res) => {
   var query = {
     '_id': `${req.params.id}` }
   Question.find(query)
-    .populate('id_user')
-    .populate({path: 'answer', populate: { path: 'id_user'}})
+    .populate('id_user','_id username email')
+    .populate({ path: 'answer', populate: { path: 'id_user', select: '_id username email'}})
     .then((documents) => {
       res.send(documents)
     })
@@ -27,7 +27,7 @@ exports.findByQuestionId = (req, res) => {
 exports.findAll = (req,res) => {
   var query = {}
   Question.find(query)
-    .populate('id_user')
+    .populate('id_user', '_id username email')
     .populate('answer')
     .then((documents) => {
       res.send(documents)
@@ -42,7 +42,7 @@ exports.findById = (req,res) => {
   
   var query = {'id_user': `${req.locals.id}`}
   Question.find(query)
-  .populate('id_user')
+  .populate('id_user','_id username email')
   .populate('answer')
   .then((documents) => {
     res.send(documents)

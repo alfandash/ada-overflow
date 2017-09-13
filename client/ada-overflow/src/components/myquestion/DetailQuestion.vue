@@ -12,7 +12,8 @@
     </div>
     <div class="panel-body well">
       <p style="white-space: pre-line">{{question.content}}</p>
-      <small>By {{question.id_user[0].username}}</small>
+      <!-- {{question}} -->
+      <small>By {{question.id_user[0].username}} created at: {{new Date(question.created_at).toString()  }}</small>
     </div>
     <div class="panel-footer well well-sm">
       <ul class="pagination pagination-sm">

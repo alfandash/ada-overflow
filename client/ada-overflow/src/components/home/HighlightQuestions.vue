@@ -6,7 +6,7 @@
       <h3 class="list-group-item-heading">{{question.title}} </h3>
       <p class="list-group-item-text" style="padding:10px">{{question.content.substring(0,30)}}</p>
       <p><a class="btn btn-primary btn-sm">Learn more</a></p>
-      <h5>by {{question.id_user[0].username}}</h5>
+      <h5>by {{question.id_user[0].username}} created at: {{new Date(question.created_at).toString()}}</h5>
     </router-link>
     <!-- {{allQuestions}} -->
   </div>

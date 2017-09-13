@@ -133,7 +133,13 @@ export default {
     allQuestionsConvertDate () {
       let sorted = this.allQuestion.map((x) => {
         // x.created_at = Date(x.created_at)
+        var date = new Date(x.created_at)
+        x.created_at = date.toString()
         return x
+      })
+
+      sorted.sort(function (a, b) {
+        return new Date(a.created_at).getTime() + new Date(b.created_at).getTime()
       })
       return sorted
     }
