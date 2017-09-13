@@ -15,7 +15,6 @@ exports.findByQuestionId = (req, res) => {
     '_id': `${req.params.id}` }
   Question.find(query)
     .populate('id_user')
-    .populate('votedup')
     .populate({path: 'answer', populate: { path: 'id_user'}})
     .then((documents) => {
       res.send(documents)
@@ -29,7 +28,6 @@ exports.findAll = (req,res) => {
   var query = {}
   Question.find(query)
     .populate('id_user')
-    .populate('votedup')
     .populate('answer')
     .then((documents) => {
       res.send(documents)
@@ -45,7 +43,6 @@ exports.findById = (req,res) => {
   var query = {'id_user': `${req.locals.id}`}
   Question.find(query)
   .populate('id_user')
-  .populate('votedup')
   .populate('answer')
   .then((documents) => {
     res.send(documents)
@@ -106,17 +103,19 @@ exports.delete = (req,res) => {
 }
 
 exports.voteUp = (req,res) => {
+  console.log('masuk vote up')
   let user = req.locals
   let query = {
-    '_id': `${req.query.id_question}`,
-    'id_user': `${user.id}`
+    '_id': `${req.query.id_question}`
   }
+  console.log(query)
   let voteUp = {
     votedup: `${user.id}`
   }
 
   Question.updateOne(query, {$addToSet: voteUp})
   .then((result) => {
+    console.log('result', result)
     res.send(result)
   })
   .catch((error) => {
@@ -127,8 +126,7 @@ exports.voteUp = (req,res) => {
 exports.voteDown = (req,res) => {
   let user = req.locals
   let query = {
-    '_id': `${req.query.id_question}`,
-    'id_user': `${user.id}`
+    '_id': `${req.query.id_question}`
   }
   let voteDown = {
     voteddown: `${user.id}`

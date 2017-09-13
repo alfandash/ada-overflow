@@ -77,8 +77,7 @@ exports.delete = (req,res) => {
 exports.voteUp = (req,res) => {
   let user = req.locals
   let query = {
-    '_id': `${req.query.id_answer}`,
-    'id_user': `${user.id}`
+    '_id': `${req.query.id_answer}`
   }
   let voteUp = {
     votedup: `${user.id}`
@@ -96,8 +95,7 @@ exports.voteUp = (req,res) => {
 exports.voteDown = (req,res) => {
   let user = req.locals
   let query = {
-    '_id': `${req.query.id_answer}`,
-    'id_user': `${user.id}`
+    '_id': `${req.query.id_answer}` 
   }
   let voteDown = {
     voteddown: `${user.id}`
